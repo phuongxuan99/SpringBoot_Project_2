@@ -9,7 +9,6 @@ public class PjboardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PjboardApplication.class, args);
-
 	}
 
 }

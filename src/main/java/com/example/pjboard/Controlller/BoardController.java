@@ -16,14 +16,13 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     // private final PostService postService;
-
     public BoardController(BoardService boardService, PostService postService) {
         this.boardService = boardService;
         //   this.postService = postService;
     }
 
     // 조회
-    @GetMapping("/boards")
+    @GetMapping("board")
     public String listBoards(Model model) {
         List<Board> boards = boardService.findAllBoards();
         model.addAttribute("boards", boards);
@@ -31,7 +30,7 @@ public class BoardController {
     }
 
     // 특정 게시글 상세보기
-    @GetMapping("/view/{id}")
+    @GetMapping("{id}")
     public String viewBoard(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Board board = boardService.view(id);
         model.addAttribute("board", board);

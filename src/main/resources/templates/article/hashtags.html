@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<header>
+  <h1>Hashtag</h1>
+  <a href="/article">게시판 돌아</a>
+</header>
+
+<main>
+  <section>
+    <h2>Hashtags</h2>
+    <ul>
+      <!-- Kiểm tra nếu có hashtag -->
+      <c:if test="${not empty hashtags}">
+        <!-- Lặp qua danh sách các hashtag và hiển thị chúng -->
+        <c:forEach var="hashtag" items="${hashtags}">
+          <li>${hashtag}</li>
+        </c:forEach>
+      </c:if>
+
+      <!-- Hiển thị thông báo nếu không có hashtag -->
+      <c:if test="${empty hashtags}">
+        <p>Hiện không có hashtag nào.</p>
+      </c:if>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2024 MyApplication</p>
+</footer>
 </body>
 </html>

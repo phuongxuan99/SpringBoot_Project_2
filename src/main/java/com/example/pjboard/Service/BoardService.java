@@ -5,11 +5,14 @@ import com.example.pjboard.repo.BoardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BoardService {
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
+    public BoardService(BoardRepository boardRepository){
+        this.boardRepository = boardRepository;
+    }
+
 
     // baord 조회
     public List< Board> findAllBoards(){

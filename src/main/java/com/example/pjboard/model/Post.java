@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
 
 
 @Getter
@@ -23,6 +24,9 @@ public class Post {
 
     @Column(nullable = false)
     private String password;
+
+    @Setter
+    private String hashtag;
 
     @CollectionTable(name = "questions_hashtags", joinColumns = @JoinColumn(name = "question_id"))
     @Column(name = "hashtag")
