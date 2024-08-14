@@ -2,6 +2,8 @@ package com.example.pjboard.model;
 
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 
 
@@ -21,6 +23,11 @@ public class Post {
 
     @Column(nullable = false)
     private String password;
+
+    @CollectionTable(name = "questions_hashtags", joinColumns = @JoinColumn(name = "question_id"))
+    @Column(name = "hashtag")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> hashtags = new HashSet<>();
 
 //    @Setter
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)

@@ -21,11 +21,11 @@ public class BoardService {
         return boardRepository.findById(id)
                 .orElseThrow() ;
     }
-
-    //삭제
-    public void deleteBoard(Long id) {
-        boardRepository.deleteById(id);
-    }
+//
+//    //삭제
+//    public void deleteBoard(Long id) {
+//        boardRepository.deleteById(id);
+//    }
 
 
 }

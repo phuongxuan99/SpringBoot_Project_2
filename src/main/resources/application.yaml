@@ -25,7 +25,11 @@ spring:
 
   logging:
     level:
-      org.hibernate.SQL: debug
-
-
+      jdbc:
+        sqltiming: info
+        resultsettable: info
+        sqlonly: fatal
+        audit: fatal
+        resultset: fatal
+        connection: fatal
 
