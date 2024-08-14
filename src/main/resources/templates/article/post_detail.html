@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Details</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Optional: link to CSS for styling -->
+</head>
+<body>
+<h1>Post Details</h1>
+
+<!-- Display the post content -->
+<div>
+    <h2 th:text="${post.title}">Post Title</h2>
+    <p th:text="${post.content}">Post Content</p>
+    <p><strong>Posted on:</strong> <span th:text="${post.postedDate}">Post Date</span></p>
+    <!-- Add more post details if needed -->
+</div>
+
+<!-- Navigation Links -->
+<div>
+    <a th:href="@{${previousPostUrl}}" th:if="${previousPostUrl}" href="#">Previous Post</a>
+    <a th:href="@{${nextPostUrl}}" th:if="${nextPostUrl}" href="#">Next Post</a>
+</div>
+
+<!-- Optional: Link to return to the list of posts or any other page -->
+<a href="/posts">Back to Post List</a>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 상세 보기</title>
+</head>
+<body>
+<h1>게시글 작성</h1>
+<a href="/boards/${post.boardId}">게시글 목록으로 돌아가기</a>
+
+<div class="comment-section">
+    <h2>댓글 작성</h2>
+    <form action="/boards/posts/${post.id}/comments" method="POST">
+        <label for="title">제목:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="content">내용:</label><br>
+        <textarea id="content" name="content" rows="10" cols="50" required></textarea><br><br>
+
+        <label for="password">비밀번호:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <br>
+        <label for="board">게시판 선택:</label>
+        <select id="board" name="board" required>
+            <option value="board1">일살 게시판</option>
+            <option value="board2">개발 게시판</option>
+            <option value="board3">자유 게시판</option>
+            <option value="board4">사전사고 게시판</option>
+        </select><br><br>
+
+        <button type="submit">게시글 작성</button>
+    </form>
+
+</div>
+<div class="post">
+    <div class="navigation">
+        <a href="{{ previous_post_url }}" class="{{ previous_post_url ? '' : 'disabled' }}">이전글</a>
+        <a href="{{ next_post_url }}" class="{{ next_post_url ? '' : 'disabled' }}">다음글</a>
+    </div>
+</div>
+
+</body>
+</html>
