@@ -2,59 +2,50 @@ package com.example.pjboard.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class Board {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-    private String title;
-    @Setter
-    private String content;
+    private String name;
 
+    @OneToMany(mappedBy = "board")
+    private final List<Article> articles = new ArrayList<>();
 
-    // Default constructor (required by JPA)
-    public Board() {}
-
-    // Constructor
-    public Board(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public Board(String name) {
+        this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", articles=" + articles +
+                '}';
+    }
 
-//    // Getters and Setters
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return Objects.equals(id, board.id) && Objects.equals(name, board.name);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }
-
-
-

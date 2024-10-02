@@ -1,69 +1,42 @@
 package com.example.pjboard.Service;
 
+import com.example.pjboard.dto.CommentDto;
+import com.example.pjboard.model.Article;
 import com.example.pjboard.model.Board;
+import com.example.pjboard.repo.ArticleRepository;
 import com.example.pjboard.repo.BoardRepository;
 import com.example.pjboard.repo.CommentRepository;
-import com.example.pjboard.repo.PostRepository;
 import com.example.pjboard.model.Comment;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
 
+@Slf4j
 @Service
-
+@RequiredArgsConstructor
 public class CommentService {
-    private final BoardRepository boardRepository;
-    private final PostRepository postRepository;
+    private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
-    public CommentService(
-            BoardRepository boardRepository,
-            PostRepository postRepository,
-            CommentRepository commentRepository
-    ){
-        this.boardRepository = boardRepository;
-        this.postRepository = postRepository;
-        this.commentRepository = commentRepository;
+    public CommentDto createComment(Long articleId, CommentDto dto) {
+        Article article = articleRepository.findById(articleId).orElseThrow();
+
+        Comment comment = new Comment();
+        comment.setArticle(article);
+        comment.setContent(dto.getContent());
+        comment.setPassword(dto.getPassword());
+        return CommentDto.fromEntity(commentRepository.save(comment));
     }
 
-    // Create
-    public Comment create(
-            Long boardId,
-            Long postId,
-            String content,
-            String name
-    ){
-        Board board = boardRepository.findById(boardId)
-                .orElseThrow();
-        Comment comment = new Comment(
-                content,
-                name
-        );
-        return commentRepository.save(comment);
-    }
-
-    public Comment readOne(
-            Long commentId
-    ){
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow();
-        return comment;
-    }
-
-
-    public Comment update(Long id,
-                          String content
-    ) {
+    public void deleteComment(Long id, String password) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow();
-        return commentRepository.save(comment);
-    }
-
-    public void delete(Long id) {
-        if (!commentRepository.existsById(id)) {
-            throw new NoSuchElementException("Comment not found with id: " + id);
+        if (comment.getPassword().equals(password)) {
+            commentRepository.delete(comment);
         }
-        commentRepository.deleteById(id);
+        // TODO else에서 throw
     }
 }

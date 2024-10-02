@@ -5,35 +5,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Entity
 @NoArgsConstructor
-public class Comment {
+public class HashTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-    private String content;
-    @Setter
-    private String password;
+    private String tag;
 
-    @Setter
-    @ManyToOne
-    private Article article;
+    @OneToMany(mappedBy = "hashTag")
+    private List<ArticleHashtag> articleHashtag;
+
+    public HashTag(String tag) {
+        this.tag = tag;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return Objects.equals(id, comment.id) && Objects.equals(content, comment.content) && Objects.equals(password, comment.password);
+        HashTag hashTag = (HashTag) o;
+        return Objects.equals(id, hashTag.id) && Objects.equals(tag, hashTag.tag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, password);
+        return Objects.hash(id, tag);
     }
 }
